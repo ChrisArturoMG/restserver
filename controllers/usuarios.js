@@ -10,7 +10,7 @@ const usuariosGet = (req = request, res=response) => {
         q,
         nombre,
         apikey,
-        page,
+        page, 
         limit 
 
     })
