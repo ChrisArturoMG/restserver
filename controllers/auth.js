@@ -5,10 +5,7 @@ const { googleVerify } = require('../helpers/google-verify');
 const Usuario  = require('../models/usuario')
 
 const login = async(req, res = response)=>{
-    
-    const { correo, password } = req.body;
-    
-    
+    const { correo, password } = req.body;    
     try {   
         //verifica email existe
         const usuario = await Usuario.findOne({ correo });
@@ -18,17 +15,13 @@ const login = async(req, res = response)=>{
                 msg: ' Usuario / Password no son correctos - correo'
             })
         }
-        
         //Usuario sigue activo
-
         if( !usuario.estado  ){
             return res.status(400).json({
                 msg: ' Usuario / Password no son correctos - estado : false'
             })
         }
-
         //verificar la contraseña
-
         const conValida = bcryptjs.compareSync(password, usuario.password);
         if(!conValida){
             return res.status(400).json({
@@ -37,24 +30,18 @@ const login = async(req, res = response)=>{
         }
         //generar JWT
         const token = await generarJWT( usuario.id );
-
         res.json({
             usuario,
             token
-    
         })
-        
     } catch (e) {
         console.log(e);
         res.status(500).json({
             msg: 'Hable con el administrador'
         })
-
     }
 }
-
-const googleSingin = async (req, res = response)=>{
-    
+const googleSingin = async (req, res = response)=>{   
     try {
         const { id_token } = req.body;  
         const {correo, nombre, img } = await googleVerify(id_token);
@@ -73,18 +60,14 @@ const googleSingin = async (req, res = response)=>{
             usuario = new Usuario( data );
             await usuario.save();
         }
-
         // si el usuario en db 
-
         if(!usuario.estado){
             return res.status(401).json({
                 msg: 'Hable con el administrador, usuario bloqueado'
             });
         }
-
         // Generar JWT
         const token = await generarJWT( usuario.id );
-
 
         res.json({
             usuario,  
