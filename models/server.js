@@ -4,6 +4,8 @@ const fileUpload = require('express-fileupload')
 
 const { dbConnection } = require('../database/config')
 
+const {resultado} = require('../database/database')
+
 class Server{
     constructor(){
         this.app = express();
@@ -14,7 +16,11 @@ class Server{
             categorias  : '/api/categorias',
             productos   : '/api/productos',
             usuarios    : '/api/usuarios',
-            uploads    : '/api/uploads'   
+            uploads     : '/api/uploads',
+            usuario     : '/api/usuario',   
+            nodo_central: '/api/nodo_central',   
+            nodo_sensores: '/api/nodo_sensores',  
+            planta: '/api/planta' 
         }
         
         // Conectar a base de datos
@@ -28,7 +34,8 @@ class Server{
     }
 
     async conectarDB(){
-        await dbConnection();
+        //await dbConnection();
+        resultado();
     }
     middlewares(){
         //CORS
@@ -55,6 +62,10 @@ class Server{
         this.app.use(this.paths.productos, require('../routes/productos'));
         this.app.use(this.paths.usuarios, require('../routes/usuarios'));
         this.app.use(this.paths.uploads, require('../routes/uploads'));
+        this.app.use(this.paths.usuario, require('../routes/usuario'));
+        this.app.use(this.paths.nodo_central, require('../routes/nodo_central'));
+        this.app.use(this.paths.nodo_sensores, require('../routes/nodo_sensores'));
+        this.app.use(this.paths.planta, require('../routes/planta'));
     }
     listen(){
         this.app.listen(this.port, ()=>{

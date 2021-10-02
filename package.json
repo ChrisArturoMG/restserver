@@ -1,7 +1,7 @@
 {
   "name": "07-rest-server",
   "version": "1.0.0",
-  "description": "",
+  "description": "Recuerden que deben de ejecutar  ```npm install``` para reconstruir los modulos de Node",
   "main": "index.js",
   "scripts": {
     "start": "node app.js "
@@ -20,6 +20,16 @@
     "google-auth-library": "^7.0.2",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.11.16",
+    "mysql": "^2.18.1",
     "uuid": "^8.3.2"
-  }
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ChrisArturoMG/restserver.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ChrisArturoMG/restserver/issues"
+  },
+  "homepage": "https://github.com/ChrisArturoMG/restserver#readme"
 }
